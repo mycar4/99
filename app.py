@@ -79,10 +79,8 @@ st.markdown("""
         display: inline-block;
     }
     
-    /* Neon Primary Button Style */
-    .stButton>button {
-        background-color: #E0FF33 !important;
-        color: #000000 !important;
+    /* Brutalist Button Style */
+    div[data-testid="stButton"] button {
         border: 3px solid #000000 !important;
         box-shadow: 4px 4px 0px 0px #000000 !important;
         border-radius: 0px !important;
@@ -90,19 +88,26 @@ st.markdown("""
         text-transform: uppercase !important;
         transition: all 0.1s ease !important;
         width: 100% !important;
-        padding: 12px !important;
+        padding: 10px 16px !important;
     }
     
-    .stButton>button:active {
+    div[data-testid="stButton"] button:active {
         transform: translate(2px, 2px) !important;
         box-shadow: 2px 2px 0px 0px #000000 !important;
     }
-    
-    /* Reset/Reboot/Red Button */
-    div[data-testid="stHorizontalBlock"] button.red-btn {
-        background-color: #EF4444 !important;
-        color: #FFFFFF !important;
+
+    /* Primary buttons (Active tab, Execute guess, etc.) */
+    div[data-testid="stButton"] button[data-testid="baseButton-primary"] {
+        background-color: #E0FF33 !important;
+        color: #000000 !important;
     }
+
+    /* Secondary buttons (Inactive tab, Reboot, etc.) */
+    div[data-testid="stButton"] button[data-testid="baseButton-secondary"] {
+        background-color: #FFFFFF !important;
+        color: #18181B !important;
+    }
+    
     
     /* Input Style */
     .stNumberInput input {
