@@ -187,6 +187,30 @@ st.markdown("""
         font-size: 1.1rem;
         width: 30px;
     }
+    
+    /* Mobile/Small screen optimization */
+    @media (max-width: 640px) {
+        /* Force the tabs navigation to remain horizontal */
+        [data-testid="stAppViewContainer"] [data-testid="stHorizontalBlock"]:first-of-type {
+            flex-direction: row !important;
+            gap: 6px !important;
+        }
+        [data-testid="stAppViewContainer"] [data-testid="stHorizontalBlock"]:first-of-type > div {
+            width: calc(33.333% - 4px) !important;
+            flex: 1 1 0% !important;
+            min-width: 0 !important;
+        }
+        /* Make button paddings and font size tighter on mobile */
+        div[data-testid="stButton"] button {
+            padding: 8px 4px !important;
+            font-size: 12px !important;
+            box-shadow: 2px 2px 0px 0px #000000 !important;
+        }
+        div[data-testid="stButton"] button:active {
+            transform: translate(1px, 1px) !important;
+            box-shadow: 1px 1px 0px 0px #000000 !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -365,35 +389,51 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# Tabs
-tab_choice = st.radio(
-    "TAB_NAV", 
-    ["🎮 게임 시작", "🏆 리더보드", "⚙️ 설정"], 
-    horizontal=True, 
-    label_visibility="collapsed"
-)
+# Tabs State Initialization
+if "tab_choice" not in st.session_state:
+    st.session_state.tab_choice = "🎮 게임"
 
-# Global Toolbar Row
-col_tb1, col_tb2 = st.columns([1, 1])
-with col_tb1:
-    if st.button("🔄 재시작"):
+# Tabs Navigation using st.columns
+col_t1, col_t2, col_t3 = st.columns(3)
+with col_t1:
+    type_t1 = "primary" if st.session_state.tab_choice == "🎮 게임" else "secondary"
+    if st.button("🎮 게임", key="tab_game", type=type_t1, use_container_width=True):
         play_sound("click")
-        initialize_game()
+        st.session_state.tab_choice = "🎮 게임"
         st.rerun()
-with col_tb2:
-    high_score = st.session_state.personalHighScore
-    high_score_str = f"최고 점수: {high_score}" if high_score != 999 else "최고 점수: 없음"
-    st.markdown(f"""
-    <div style="font-family: 'Share Tech Mono', monospace; font-size: 13px; font-weight: 900; color: #000000; display: flex; align-items: center; justify-content: center; gap: 6px; background-color: #E0FF33; border: 2px solid #000000; padding: 7px 12px; height: 100%;">
-        <span>🏆 {high_score_str}</span>
-    </div>
-    """, unsafe_allow_html=True)
+with col_t2:
+    type_t2 = "primary" if st.session_state.tab_choice == "🏆 랭킹" else "secondary"
+    if st.button("🏆 랭킹", key="tab_leaderboard", type=type_t2, use_container_width=True):
+        play_sound("click")
+        st.session_state.tab_choice = "🏆 랭킹"
+        st.rerun()
+with col_t3:
+    type_t3 = "primary" if st.session_state.tab_choice == "⚙️ 설정" else "secondary"
+    if st.button("⚙️ 설정", key="tab_settings", type=type_t3, use_container_width=True):
+        play_sound("click")
+        st.session_state.tab_choice = "⚙️ 설정"
+        st.rerun()
 
+tab_choice = st.session_state.tab_choice
 st.write("")
 
 # ----------------- TABS IMPLEMENTATION -----------------
 
-if tab_choice == "🎮 게임 시작":
+if tab_choice == "🎮 게임":
+    # Global Toolbar Row (Only visible in Game Tab now)
+    col_tb1, col_tb2 = st.columns([1, 1])
+    with col_tb1:
+        if st.button("🔄 재시작", type="secondary"):
+            play_sound("click")
+            initialize_game()
+            st.rerun()
+    with col_tb2:
+        high_score = st.session_state.personalHighScore
+        high_score_str = f"최고 점수: {high_score}" if high_score != 999 else "최고 점수: 없음"
+        st.markdown(f'<div style="font-family: \'Share Tech Mono\', monospace; font-size: 13px; font-weight: 900; color: #000000; display: flex; align-items: center; justify-content: center; gap: 6px; background-color: #E0FF33; border: 3px solid #000000; padding: 7px 12px; height: 100%;"><span>🏆 {high_score_str}</span></div>', unsafe_allow_html=True)
+
+    st.write("")
+
     game = st.session_state.game
     settings = st.session_state.settings
     
@@ -657,7 +697,7 @@ if tab_choice == "🎮 게임 시작":
             </div>
             """, unsafe_allow_html=True)
 
-elif tab_choice == "🏆 리더보드":
+elif tab_choice == "🏆 랭킹":
     st.markdown("""
     <div class="bento-card" style="display: flex; align-items: center; gap: 15px;">
         <div style="width: 48px; height: 48px; background-color: #000000; display: flex; align-items: center; justify-content: center; font-size: 24px;">
