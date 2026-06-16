@@ -1,0 +1,6 @@
+{
+  "name": "NUMB3R GUESS",
+  "description": "An elite cyber-themed number guessing logic game featuring neural stability trackers, real-time feedback, settings, and player leaderboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
