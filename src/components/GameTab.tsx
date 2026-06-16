@@ -107,7 +107,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
 
   // Banner configuration according to Bento standard game hint status
   let bannerClass = "bg-white text-zinc-900 border-black";
-  let bannerLabel = "ENTER A NUMBER TO START";
+  let bannerLabel = "숫자를 입력하여 시작하세요";
 
   if (stats.hint.type === "higher") {
     // High-impact higher state
@@ -136,7 +136,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
         {/* Atempts Box */}
         <section className="bg-white border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 flex flex-col justify-between">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">Attempts Stability</p>
+            <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">남은 시도 기회</p>
             <div className="text-5xl font-black font-mono tracking-tight mt-1">
               {stats.chancesLeft.toString().padStart(2, "0")}<span className="text-zinc-300">/{stats.maxChances}</span>
             </div>
@@ -152,9 +152,9 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
               />
             </div>
             <div className="flex justify-between items-center mt-2">
-              <span className="text-[9px] font-bold text-zinc-400 uppercase">Stability Engine Status</span>
+              <span className="text-[9px] font-bold text-zinc-400 uppercase">안정성 엔진 상태</span>
               <span className={`text-[10px] font-black uppercase ${isDanger ? "text-red-500 animate-pulse" : "text-zinc-900"}`}>
-                {isDanger ? "STABILITY WEAK" : "SYNCED"}
+                {isDanger ? "실패 위기!" : "정상"}
               </span>
             </div>
           </div>
@@ -163,9 +163,9 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
         {/* Dynamic heart slots */}
         <section className="bg-white border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 flex flex-col justify-between">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">Target Field Constraints</p>
+            <p className="text-[10px] font-black uppercase tracking-wider text-zinc-400">시도 횟수 분석</p>
             <div className="text-sm font-bold text-zinc-900 mt-1 leading-snug">
-              Guessed <span className="font-mono bg-zinc-100 border border-black px-1.5 py-0.5">{stats.previousGuesses.length}</span> times in this logic dimension.
+              현재 차원에서 총 <span className="font-mono bg-zinc-100 border border-black px-1.5 py-0.5">{stats.previousGuesses.length}</span>번 추측했습니다.
             </div>
           </div>
 
@@ -200,7 +200,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
             className={`border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 text-center font-bold ${bannerClass}`}
           >
             <div className="text-[10px] uppercase tracking-widest opacity-50 font-black mb-1">
-              Neural Engine Response
+              뉴럴 엔진 분석 결과
             </div>
             <h3 className="text-lg md:text-xl font-black uppercase tracking-tight flex items-center justify-center gap-2">
               {stats.hint.type === "higher" && <Zap size={18} className="fill-black text-black" />}
@@ -214,10 +214,10 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
         <div className="bg-white border-[3px] border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6 flex flex-col gap-5 relative">
           <div className="flex flex-col gap-2">
             <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-              Compressed Matrix Integer
+              추측 대상 범위
             </span>
             <h4 className="text-lg font-bold tracking-tight text-zinc-900">
-              Synchronized Field Range: {minPossible} — {maxPossible}
+              설정된 숫자 범위: {minPossible} ~ {maxPossible}
             </h4>
           </div>
 
@@ -241,7 +241,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
               {stats.status !== "playing" && (
                 <div className="absolute inset-0 bg-white/95 border-3 border-black flex flex-col items-center justify-center p-4">
                   <span className="text-xs font-black uppercase tracking-wider text-zinc-400 mb-1">
-                    Correct Target Value Resolved
+                    정답 공개
                   </span>
                   <span className="text-5xl font-black tracking-tighter text-black font-mono">
                     {stats.targetNumber}
@@ -256,7 +256,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
                 type="submit"
                 className="w-full bento-btn-primary py-5 text-lg font-black transition-all flex items-center justify-center gap-2"
               >
-                <span>EXECUTE GUESS</span>
+                <span>추측 실행</span>
                 <Zap size={18} className="fill-white" />
               </button>
             ) : (
@@ -270,7 +270,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
                   stats.status === "won" ? "bento-btn-accent" : "bento-btn-primary"
                 }`}
               >
-                <span>RESET STABILITY ENIGMA</span>
+                <span>새 게임 시작</span>
                 <RefreshCw size={18} />
               </button>
             )}
@@ -282,7 +282,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
       {stats.status === "playing" && (
         <section className="bg-white border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 flex flex-col gap-3">
           <span className="text-[10px] font-black uppercase tracking-wider text-zinc-400">
-            Quick Compressions
+            빠른 비율 탐색
           </span>
           <div className="grid grid-cols-4 gap-2">
             {[25, 50, 75, 90].map((num) => {
@@ -306,7 +306,7 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
       {stats.previousGuesses.length > 0 && (
         <section className="bg-white border-[3px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-5 flex flex-col gap-3">
           <div className="flex justify-between items-center border-b-2 border-black pb-3">
-            <span className="text-xs font-black uppercase tracking-widest">History Waveform Log</span>
+            <span className="text-xs font-black uppercase tracking-widest">이전 시도 기록</span>
             <span className="font-mono text-[10px] text-zinc-400">V.024</span>
           </div>
 
@@ -318,22 +318,22 @@ export default function GameTab({ stats, settings, onGuess, onPlayAgain }: GameT
               >
                 <div className="flex items-center gap-2">
                   <span className="text-zinc-400">#{stats.previousGuesses.length - index}</span>
-                  <span className="text-black font-black text-sm">GUESS: {guess.value}</span>
+                  <span className="text-black font-black text-sm">입력값: {guess.value}</span>
                 </div>
                 <div>
                   {guess.result === "higher" && (
                     <span className="text-red-600 bg-red-100 border border-black px-2 py-0.5 text-[10px] uppercase font-black">
-                      Too Low (Higher!)
+                      너무 낮음 (더 높음 ↑)
                     </span>
                   )}
                   {guess.result === "lower" && (
                     <span className="text-amber-700 bg-amber-100 border border-black px-2 py-0.5 text-[10px] uppercase font-black">
-                      Too High (Lower!)
+                      너무 높음 (더 낮음 ↓)
                     </span>
                   )}
                   {guess.result === "correct" && (
                     <span className="text-black bg-[#E0FF33] border border-black px-2 py-0.5 text-[10px] uppercase font-black animate-pulse">
-                      Correct
+                      정답
                     </span>
                   )}
                 </div>

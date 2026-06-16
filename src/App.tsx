@@ -8,11 +8,11 @@ import SettingsTab from "./components/SettingsTab";
 
 // Original Mock rankings inside the design system
 const DEFAULT_RANKINGS: PlayerRank[] = [
-  { id: "cyber-ninja", name: "CyberNinja", score: 950, title: "Pro Logic Agent", difficulty: "easy" },
-  { id: "void-walker", name: "VoidWalker", score: 820, title: "Master Guesser", difficulty: "easy" },
-  { id: "bit-master", name: "BitMaster", score: 740, title: "Data Analyst", difficulty: "easy" },
-  { id: "null-pointer", name: "NullPointer", score: 690, title: "Sys Administrator", difficulty: "easy" },
-  { id: "ghost-shell", name: "GhostInShell", score: 610, title: "Neural Hacker", difficulty: "easy" }
+  { id: "cyber-ninja", name: "CyberNinja", score: 950, title: "프로 로직 에이전트", difficulty: "easy" },
+  { id: "void-walker", name: "VoidWalker", score: 820, title: "추측 마스터", difficulty: "easy" },
+  { id: "bit-master", name: "BitMaster", score: 740, title: "데이터 분석가", difficulty: "easy" },
+  { id: "null-pointer", name: "NullPointer", score: 690, title: "시스템 관리자", difficulty: "easy" },
+  { id: "ghost-shell", name: "GhostInShell", score: 610, title: "뉴럴 해커", difficulty: "easy" }
 ];
 
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
     maxChances: 10,
     previousGuesses: [],
     status: "playing",
-    hint: { text: "ENTER A NUMBER TO START", type: "start" },
+    hint: { text: "숫자를 입력하여 시작하세요", type: "start" },
     score: 0
   });
 
@@ -116,7 +116,7 @@ export default function App() {
       maxChances: maxChances,
       previousGuesses: [],
       status: "playing",
-      hint: { text: "ENTER A NUMBER TO START", type: "start" },
+      hint: { text: "숫자를 입력하여 시작하세요", type: "start" },
       score: 0
     });
     // Reset timer on game setup
@@ -136,7 +136,7 @@ export default function App() {
       setStats((prev) => ({
         ...prev,
         hint: {
-          text: `Range input violation: ${settings.minRange}-${settings.maxRange}!`,
+          text: `입력 범위 오류: ${settings.minRange}~${settings.maxRange} 사이여야 합니다!`,
           type: "invalid"
         }
       }));
@@ -149,7 +149,7 @@ export default function App() {
       setStats((prev) => ({
         ...prev,
         hint: {
-          text: `Duplicate guess flagged: ${value}!`,
+          text: `이미 입력한 숫자입니다: ${value}!`,
           type: "invalid"
         }
       }));
@@ -166,7 +166,7 @@ export default function App() {
     if (value === stats.targetNumber) {
       nextStatus = "won";
       guessResult = "correct";
-      hintText = "CORRECT! NEURAL MATRIX MATCHED! 🎉";
+      hintText = "정답입니다! 뉴럴 매트릭스 일치! 🎉";
       hintType = "win";
       playCyberSound("success", settings.soundEnabled);
 
@@ -178,19 +178,19 @@ export default function App() {
     } else {
       if (value < stats.targetNumber) {
         guessResult = "higher";
-        hintText = "TOO LOW! (TARGET IS HIGHER ↑)";
+        hintText = "너무 낮습니다! (더 높음 ↑)";
         hintType = "higher";
         playCyberSound("higher", settings.soundEnabled);
       } else {
         guessResult = "lower";
-        hintText = "TOO HIGH! (TARGET IS LOWER ↓)";
+        hintText = "너무 높습니다! (더 낮음 ↓)";
         hintType = "lower";
         playCyberSound("lower", settings.soundEnabled);
       }
 
       if (nextChances <= 0) {
         nextStatus = "lost";
-        hintText = "ZERO STABILITY! ENIGMA FAILED 💀";
+        hintText = "기회가 모두 소진되었습니다! 퍼즐 해결 실패 💀";
         hintType = "lose";
         playCyberSound("fail", settings.soundEnabled);
       }
@@ -211,14 +211,14 @@ export default function App() {
   // Register score limits
   const registerNewScore = (score: number) => {
     const titlePool = {
-      easy: "Logic Cadet",
-      medium: "Master Guesser",
-      hard: "Neural Hacker Elite"
+      easy: "논리 입문자",
+      medium: "추측 마스터",
+      hard: "뉴럴 해커 엘리트"
     };
 
     const newEntry: PlayerRank = {
       id: `custom-rank-${Date.now()}`,
-      name: settings.username || "Anonymous Guesser",
+      name: settings.username || "익명의 도전자",
       score: score,
       title: titlePool[settings.difficulty],
       difficulty: settings.difficulty,
@@ -265,10 +265,10 @@ export default function App() {
         <header className="flex justify-between items-end mb-8 border-b-4 border-black pb-5">
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 mb-1">
-              CHALLENGE LEVEL: {settings.difficulty}
+              난이도: {settings.difficulty === 'easy' ? '쉬움' : settings.difficulty === 'medium' ? '보통' : '어려움'}
             </p>
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-[#18181B] uppercase leading-none">
-              Number<br/>Enigma.
+              숫자<br/>에니그마.
             </h1>
           </div>
           <div className="flex flex-col items-end gap-2 shrink-0">
@@ -278,7 +278,7 @@ export default function App() {
               <span>{formatTime(elapsedSeconds)}</span>
             </div>
             <span className="text-[9px] font-black tracking-wider text-zinc-400 uppercase">
-              Tanks Synced Active
+              엔진 동기화 활성
             </span>
           </div>
         </header>
@@ -291,15 +291,15 @@ export default function App() {
               initializeGame();
             }}
             className="bento-btn-primary p-2 flex items-center justify-center cursor-pointer font-black text-xs uppercase gap-1"
-            title="Recalibrate Engine"
+            title="엔진 초기화"
           >
             <RotateCw size={14} />
-            <span>REBOOT</span>
+            <span>재시작</span>
           </button>
 
           <div className="font-mono text-xs font-black text-black flex items-center gap-1.5 bg-[#E0FF33] border-2 border-black px-3 py-1">
             <Trophy size={14} className="fill-black text-black shrink-0" />
-            <span className="uppercase tracking-tight">HIGH_PTS: {personalHighScore}</span>
+            <span className="uppercase tracking-tight">최고 점수: {personalHighScore}</span>
           </div>
         </div>
 
@@ -361,11 +361,11 @@ export default function App() {
           <div className="flex gap-4">
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-green-500 border border-black"></div>
-              <span>Neural Engine Ready</span>
+              <span>뉴럴 엔진 준비됨</span>
             </div>
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-black"></div>
-              <span>Data Matrix Syncing</span>
+              <span>데이터 매트릭스 동기화 중</span>
             </div>
           </div>
           <div className="font-mono">
@@ -391,7 +391,7 @@ export default function App() {
             }`}
           >
             <Gamepad2 size={16} className="mb-0.5" />
-            <span className="text-[9px] tracking-tight">ENGIN_PLAY</span>
+            <span className="text-[9px] tracking-tight">게임 시작</span>
           </button>
 
           {/* Rankings chart tab */}
@@ -407,7 +407,7 @@ export default function App() {
             }`}
           >
             <BarChart2 size={16} className="mb-0.5" />
-            <span className="text-[9px] tracking-tight">LOG_CHART</span>
+            <span className="text-[9px] tracking-tight">리더보드</span>
           </button>
 
           {/* Config options tab */}
@@ -423,7 +423,7 @@ export default function App() {
             }`}
           >
             <SettingsIcon size={16} className="mb-0.5" />
-            <span className="text-[9px] tracking-tight">ENCRYPT</span>
+            <span className="text-[9px] tracking-tight">설정</span>
           </button>
         </div>
       </nav>

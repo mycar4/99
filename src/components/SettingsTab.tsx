@@ -40,7 +40,7 @@ export default function SettingsTab({ settings, onUpdateSettings }: SettingsTabP
       {/* Title Header Block */}
       <div className="flex items-center gap-3">
         <span className="h-[2px] flex-grow bg-black" />
-        <h2 className="font-mono text-xs text-black uppercase tracking-[0.2em] font-black">Configuration</h2>
+        <h2 className="font-mono text-xs text-black uppercase tracking-[0.2em] font-black">게임 설정</h2>
         <span className="h-[2px] flex-grow bg-black" />
       </div>
 
@@ -50,26 +50,26 @@ export default function SettingsTab({ settings, onUpdateSettings }: SettingsTabP
         {/* Username input */}
         <div className="flex flex-col gap-2">
           <label className="font-sans text-xs font-black text-black uppercase tracking-wider flex items-center gap-1.5">
-            <User size={14} className="text-black" /> GUESSER SIGN-IN ALIAS
+            <User size={14} className="text-black" /> 닉네임 설정
           </label>
           <input
             className="w-full bento-input py-3 text-left px-3 text-sm text-black"
             type="text"
-            placeholder="guesser.alias"
+            placeholder="닉네임을 입력하세요"
             value={usernameInput}
             onChange={(e) => setUsernameInput(e.target.value)}
             onBlur={handleUsernameBlur}
             maxLength={18}
           />
           <span className="text-[10px] text-zinc-400 font-mono font-bold uppercase">
-            Saves your score in the local scoreboard.
+            점수가 로컬 순위표에 기록됩니다.
           </span>
         </div>
 
         {/* Difficulty compression */}
         <div className="flex flex-col gap-2">
           <label className="font-sans text-xs font-black text-black uppercase tracking-wider flex items-center gap-1.5">
-            <Shield size={14} className="text-black" /> Target Compressed Field Max Limit
+            <Shield size={14} className="text-black" /> 숫자 범위 및 난이도 설정
           </label>
           
           <div className="grid grid-cols-3 gap-2.5">
@@ -95,7 +95,7 @@ export default function SettingsTab({ settings, onUpdateSettings }: SettingsTabP
                     !active ? "hover:border-black hover:text-black" : ""
                   }`}
                 >
-                  <span className="font-black tracking-tight">{diff}</span>
+                  <span className="font-black tracking-tight">{diff === 'easy' ? '쉬움' : diff === 'medium' ? '보통' : '어려움'}</span>
                   <span className={`text-[9px] font-bold ${active ? "text-black/60" : "text-zinc-400"}`}>
                     {diff === "easy" ? "1-100" : diff === "medium" ? "1-500" : "1-1000"}
                   </span>
@@ -109,10 +109,10 @@ export default function SettingsTab({ settings, onUpdateSettings }: SettingsTabP
         <div className="flex justify-between items-center py-4 border-t-2 border-black mt-2">
           <div className="flex flex-col gap-0.5 max-w-[70%]">
             <span className="font-sans text-xs font-black text-zinc-900 uppercase tracking-wider">
-              Sound FX Synthesizer
+              효과음 설정
             </span>
             <span className="text-[11px] text-zinc-400 uppercase font-black">
-              Generates Web Audio waves on key guess states
+              주요 상태 변화 시 효과음을 재생합니다.
             </span>
           </div>
 
@@ -132,20 +132,20 @@ export default function SettingsTab({ settings, onUpdateSettings }: SettingsTabP
       {/* Cybernetic rules guide card */}
       <div className="bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] p-5 flex flex-col gap-3">
         <h4 className="font-mono text-xs font-black text-black flex items-center gap-1.5 uppercase leading-none pb-2 border-b border-black">
-          <BadgeInfo size={14} /> HOW SCORE SCAMES COMPILE
+          <BadgeInfo size={14} /> 게임 규칙 및 점수 산정 방식
         </h4>
         <ul className="flex flex-col gap-3 text-xs text-zinc-800 leading-relaxed font-medium">
           <li className="flex items-start gap-2">
             <Sparkles size={12} className="text-black shrink-0 mt-0.5" />
-            <span><strong>Chances Limits:</strong> Easy holds 10 chances, Medium gives 8, and Hard scales down to only 6 chances left!</span>
+            <span><strong>기회 제한:</strong> 쉬움 난이도는 10번, 보통은 8번, 어려움은 6번의 기회가 주어집니다.</span>
           </li>
           <li className="flex items-start gap-2">
             <Sparkles size={12} className="text-black shrink-0 mt-0.5" />
-            <span><strong>Score Formula:</strong> Guesses left are compounded with range scales. Score = <code className="font-mono font-bold bg-zinc-100 border border-black px-1 py-0.2 select-all">chancesLeft * rangeMultiplier</code>.</span>
+            <span><strong>점수 산정:</strong> 남은 기회 수에 난이도별 가중치가 곱해집니다. 점수 = <code className="font-mono font-bold bg-zinc-100 border border-black px-1 py-0.2 select-all">남은 기회 × 난이도 배수</code>.</span>
           </li>
           <li className="flex items-start gap-2">
             <Sparkles size={12} className="text-black shrink-0 mt-0.5" />
-            <span><strong>Defeat Security:</strong> Gain a score &gt; 900 on Hard difficulty to dominate the logical database index.</span>
+            <span><strong>고득점 챌린지:</strong> 어려움 난이도에서 900점 이상을 달성하여 랭킹 보드를 지배해 보세요.</span>
           </li>
         </ul>
       </div>

@@ -21,8 +21,8 @@ export default function LeaderboardTab({ rankings, onClearLeaderboard, currentUs
           <Trophy className="text-[#E0FF33]" size={24} />
         </div>
         <div>
-          <h3 className="font-mono text-sm font-black uppercase tracking-tight text-zinc-900">LOGIC LEADERBOARD</h3>
-          <p className="text-xs text-zinc-500 font-bold uppercase mt-0.5">High-fidelity matrix indexing top guessers.</p>
+          <h3 className="font-mono text-sm font-black uppercase tracking-tight text-zinc-900">논리 리더보드</h3>
+          <p className="text-xs text-zinc-500 font-bold uppercase mt-0.5">최고 득점자들의 순위표입니다.</p>
         </div>
       </div>
 
@@ -30,7 +30,7 @@ export default function LeaderboardTab({ rankings, onClearLeaderboard, currentUs
       <section className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
           <span className="h-[2px] flex-grow bg-black" />
-          <h2 className="font-mono text-xs text-black uppercase tracking-[0.2em] font-black">Top Registered Hackers</h2>
+          <h2 className="font-mono text-xs text-black uppercase tracking-[0.2em] font-black">최고 득점자 목록</h2>
           <span className="h-[2px] flex-grow bg-black" />
         </div>
 
@@ -85,12 +85,12 @@ export default function LeaderboardTab({ rankings, onClearLeaderboard, currentUs
                     <span className="font-sans font-black text-black truncate text-[15px]">{rank.name}</span>
                     {rank.isCustomPlayer && (
                       <span className="text-[9px] font-mono uppercase bg-black text-[#E0FF33] px-1 rounded font-black">
-                        YOU
+                        나
                       </span>
                     )}
                     {rank.difficulty && (
                       <span className="text-[8px] font-mono text-zinc-500 tracking-wider uppercase border border-black px-1 font-bold">
-                        {rank.difficulty}
+                        {rank.difficulty === 'easy' ? '쉬움' : rank.difficulty === 'medium' ? '보통' : '어려움'}
                       </span>
                     )}
                   </div>
@@ -102,7 +102,7 @@ export default function LeaderboardTab({ rankings, onClearLeaderboard, currentUs
                   <span className="font-mono font-black text-base text-black">
                     {rank.score}
                   </span>
-                  <span className="font-mono text-[9px] text-zinc-500 block leading-none uppercase font-bold">PTS</span>
+                  <span className="font-mono text-[9px] text-zinc-500 block leading-none uppercase font-bold">점</span>
                 </div>
               </motion.div>
             );
@@ -115,10 +115,10 @@ export default function LeaderboardTab({ rankings, onClearLeaderboard, currentUs
         {rankings.some((r) => r.isCustomPlayer) && (
           <div className="p-4 bg-white border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-2">
             <span className="font-mono text-[10px] text-black uppercase tracking-wider flex items-center gap-1 font-black">
-              <ShieldCheck size={14} className="text-zinc-900" /> SECURED HIGH-SCORE SYNTAX
+              <ShieldCheck size={14} className="text-zinc-900" /> 최고 점수 보안 기록
             </span>
             <p className="text-xs text-zinc-600 font-medium">
-              Your highest personal score is <strong className="text-black font-mono bg-zinc-100 border border-black px-1">{currentUserScore} PTS</strong>. It has been successfully stored in your local logic drive.
+              개인 최고 점수는 <strong className="text-black font-mono bg-zinc-100 border border-black px-1">{currentUserScore} 점</strong> 입니다. 브라우저 로컬 저장소에 안전하게 기록되었습니다.
             </p>
           </div>
         )}
@@ -128,7 +128,7 @@ export default function LeaderboardTab({ rankings, onClearLeaderboard, currentUs
           className="w-full bento-btn-primary py-4 text-sm font-black transition-all flex items-center justify-center gap-2 border-[3px] border-black cursor-pointer bg-red-500 hover:bg-red-600 text-white"
         >
           <Trash2 size={16} />
-          <span>RESET LEADERS MATRIX</span>
+          <span>리더보드 초기화</span>
         </button>
       </section>
     </div>
